@@ -10,6 +10,8 @@ import java.util.LinkedList;
 import org.junit.Before;
 import org.junit.Test;
 
+import practice.SLinkedList;
+
 /**
  * @author UC San Diego MOOC team
  *
@@ -123,8 +125,16 @@ public class MyLinkedListTester {
 	@Test
 	public void testAddEnd()
 	{
-        // TODO: implement this test
-		
+        try {
+        	longerList.add(null);
+        	fail("Check add null element");
+        }catch (NullPointerException e) {
+        	
+        }
+        for (int i = 0; i < LONG_LIST_LENGTH; i++) {
+        	assertEquals("Add: check "+ i +" element", true, longerList.add(i));
+		}
+        
 	}
 
 	
@@ -144,7 +154,18 @@ public class MyLinkedListTester {
 	@Test
 	public void testAddAtIndex()
 	{
-        // TODO: implement this test
+        int a = 50;
+        int b = 60;
+        int c = 70;
+        
+        longerList.add(0, a);
+        longerList.add(longerList.size-1, b);
+        longerList.add(longerList.size/2, c);
+        
+        assertEquals("Add at Index: Check add at beginning", (Integer)a, longerList.get(0));
+        assertEquals("Add at Index: Check add at end", (Integer)b, longerList.get(longerList.size-1));
+        assertEquals("Add at Index: Check add at beginning", (Integer)c, longerList.get(longerList.size/2));
+        
 		
 	}
 	
