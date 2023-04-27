@@ -29,30 +29,15 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	 * @param element The element to add
 	 */
 	private boolean isValidIndex(int index) {
-		if(size == 0 || (size > 0 && index >= size) || index < 0) {
+		if(size == 0 || (size > 0 && index >= size) || index < 0 || (Integer) index == null) {
 			return false;
 		}
 		return true;
 	}
 	
 	public boolean add(E element ) 
-	{
-		if(element == null) {
-			throw new NullPointerException();
-		}
-		
-		LLNode<E> last = head;
-		LLNode<E> newNode = new LLNode<E>(element);
-		
-		while(last.next!=tail) {
-			last = last.next;
-		}
-		
-		this.tail.prev = newNode;
-		newNode.next = this.tail;
-		newNode.prev = last;
-		last.next = newNode;
-		size++;
+	{		
+		this.add(size, element);
 		
 		return true;
 	}
@@ -87,6 +72,10 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	{
 		if(element == null) {
 			throw new NullPointerException();
+		}
+		
+		if(index < 0 || (size > 0 && index > size)){
+			throw new IndexOutOfBoundsException();
 		}
 		
 		LLNode<E> prevNode = head;
@@ -156,9 +145,43 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	 */
 	public E set(int index, E element) 
 	{
-		// TODO: Implement this method
-		return null;
-	}   
+		if(!isValidIndex(index)) {
+			throw new IndexOutOfBoundsException();
+		}
+		
+		if(element == null) {
+			throw new NullPointerException();
+		}
+		
+		E data = null;
+		
+		LLNode<E> node = head.next;
+		int i = 0;
+		while(node!=tail) {
+			if(index == i) {
+				data = node.data;
+				node.data = element;
+				break;
+			}
+			i++;
+			node = node.next;
+		}
+		
+		return data;
+	}
+	
+	@Override
+	public String toString() {
+		LLNode<E> node = head.next;
+		
+		String list = "";
+		while(node!=tail) {
+			list = list + node.data + " ";
+			node = node.next;
+		}
+		
+		return list;
+	}
 }
 
 class LLNode<E> 
