@@ -3,4 +3,5 @@
 /*.project
 /.settings
 /bin/
-/src/Practice.java
+/src/practice/*
+
